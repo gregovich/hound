@@ -6,13 +6,13 @@ class SubscriptionsController < ApplicationController
   respond_to :json
 
   def create
-    if activator.activate(repo, github_token) && create_subscription
+    if activator.enable(repo, github_token) && create_subscription
       JobQueue.push(OrgInvitationJob)
       analytics.track_subscribed(repo)
       render json: repo, status: :created
     else
-      activator.deactivate(repo, github_token)
-      report_activation_error("Failed to subscribe and activate repo")
+      activator.disable(repo, github_token)
+      report_activation_error("Failed to subscribe and enable repo")
       head 502
     end
   end
@@ -20,11 +20,11 @@ class SubscriptionsController < ApplicationController
   def destroy
     repo = current_user.repos.find(params[:repo_id])
 
-    if activator.deactivate(repo, session[:github_token]) && delete_subscription
+    if activator.disable(repo, session[:github_token]) && delete_subscription
       analytics.track_unsubscribed(repo)
       render json: repo, status: :created
     else
-      report_activation_error("Failed to unsubscribe and deactivate repo")
+      report_activation_error("Failed to unsubscribe and disable repo")
       head 502
     end
   end

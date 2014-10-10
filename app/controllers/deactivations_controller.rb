@@ -1,18 +1,18 @@
 class DeactivationsController < ApplicationController
   class FailedToActivate < StandardError; end
-  class CannotDeactivateRepoWithSubscription < StandardError; end
+  class CannotDisableRepoWithSubscription < StandardError; end
 
   respond_to :json
 
   before_action :check_for_subscription
 
   def create
-    if activator.deactivate(repo, session[:github_token])
-      analytics.track_deactivated(repo)
+    if activator.disable(repo, session[:github_token])
+      analytics.track_disabled(repo)
       render json: repo, status: :created
     else
       report_exception(
-        FailedToActivate.new('Failed to deactivate repo'),
+        FailedToActivate.new("Failed to disable repo"),
         user_id: current_user.id, repo_id: params[:repo_id]
       )
       head 502
@@ -31,7 +31,7 @@ class DeactivationsController < ApplicationController
 
   def check_for_subscription
     if repo.subscription
-      raise CannotDeactivateRepoWithSubscription
+      raise CannotDisableRepoWithSubscription
     end
   end
 end

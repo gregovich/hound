@@ -1,7 +1,7 @@
 App.factory 'Repo', ['$resource', ($resource) ->
   $resource '/repos/:id', {id: '@id'},
-    activate:
+    enable:
       method: 'POST', url: 'repos/:id/activation'
-    deactivate:
+    disable:
       method: 'POST', url: 'repos/:id/deactivation'
 ]

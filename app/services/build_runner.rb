@@ -36,7 +36,7 @@ class BuildRunner
   end
 
   def repo
-    @repo ||= Repo.active.where(github_id: payload.github_repo_id).first
+    @repo ||= Repo.enabled.where(github_id: payload.github_repo_id).first
   end
 
   def track_reviewed_repo_for_each_user

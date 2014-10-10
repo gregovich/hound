@@ -1,18 +1,18 @@
 class RepoActivator
-  def activate(repo, github_token)
+  def enable(repo, github_token)
     change_repository_state_quietly do
       github = GithubApi.new(github_token)
       add_hound_to_repo(github, repo) &&
         create_webhook(github, repo) &&
-        repo.activate
+        repo.enable
     end
   end
 
-  def deactivate(repo, github_token)
+  def disable(repo, github_token)
     change_repository_state_quietly do
       github = GithubApi.new(github_token)
       delete_webhook(github, repo) &&
-        repo.deactivate
+        repo.disable
     end
   end
 
