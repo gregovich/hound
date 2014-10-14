@@ -1,0 +1,39 @@
+= render 'shared/header'
+
+%main.content-doc
+  %h2 Frequently Asked Questions
+
+  %h3 Can I have Hound check my entire repository for style?
+
+  %p
+    No. we don't recommend doing that. We say "Don't rewrite existing code to
+    follow this guide."
+
+  %p
+    https://github.com/thoughtbot/guides#guides
+
+  %p
+    It can be dangerous to re-write a lot of code for just style reasons. It
+    can introduce functional regressions, which are a higher-level concern than
+    style.
+
+  %p
+    We believe the right approach is to convert a codebase over time, one pull
+    request at a time, to conform to a style guide. Only focus on style in
+    diffs and make smaller changes that ideally have tests associated with
+    them.
+
+  %p
+    It's the same approach we use when adding tests to a repository that is
+    lacking them. It most often does not make sense to stop forward progress on
+    the project to write tests for everything. Only write tests for any code
+    that is touched going forward.
+
+  %h3 Do you offer GitHub Enterprise support?
+
+  %p
+    Not at the current time. A user has shared their method of getting it to
+    work
+    = link_to('here in this GitHub issue',
+      'https://github.com/thoughtbot/hound/issues/426')
+      but it is an not officially supported approach.
