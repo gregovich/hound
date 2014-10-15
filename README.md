@@ -27,7 +27,14 @@ Set Up Hound on Your Local Development Environment
 6. Generate the [Stripe tokens] and copy them into your `.env` file. Put the
    'Test Secret Key' as the value for `STRIPE_API_KEY` and 'Test Publishable
    Key' as the value for `STRIPE_PUBLISHABLE_KEY`.
-7. Run `foreman start`. Foreman will start the web server, `redis-server`, and
+7. Create a Stripe plan called "private" for your development environment
+   https://dashboard.stripe.com/test/plans
+> ID: "private"
+> Name: "private"
+> Amount: $12.00
+> Recurring: Monthly
+
+8. Run `foreman start`. Foreman will start the web server, `redis-server`, and
    the resque background job queue. NOTE: `rails server` will not load the
    appropriate environment variables and you'll get a "Missing `secret_key_base`
    for 'development' environment" error.
